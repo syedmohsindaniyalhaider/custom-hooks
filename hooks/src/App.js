@@ -1,5 +1,22 @@
+import { useState, useEffect } from "react";
 import "./App.css";
 import useCounter from "./Components/useCounter";
+import useFetch from "./Components/useFetch";
+
+const FetchApi = () => {
+  const data = useFetch("https://jsonplaceholder.typicode.com/todos");
+  const activites = useFetch("https://jsonplaceholder.typicode.com/users");
+  console.log(activites);
+  console.log(data);
+  return (
+    <>
+      {data &&
+        data.map((item) => {
+          return <p key={item?.id}>{item?.title}</p>;
+        })}
+    </>
+  );
+};
 
 const ForwardCounter = () => {
   const counter = useCounter();
@@ -14,11 +31,7 @@ const BackwardCounter = () => {
 function App() {
   return (
     <>
-      <div
-        style={{
-          margin: "20px 50%",
-        }}
-      >
+      <div>
         <div
           style={{
             padding: " 20px",
@@ -39,6 +52,13 @@ function App() {
           }}
         >
           <BackwardCounter />
+        </div>
+        <div
+          style={{
+            padding: " 20px",
+          }}
+        >
+          <FetchApi />
         </div>
       </div>
     </>
